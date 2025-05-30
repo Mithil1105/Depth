@@ -11,7 +11,7 @@ import theme from './styles/theme';
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Router>
+      <Router basename="/Depth">
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />

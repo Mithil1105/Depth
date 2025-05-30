@@ -42,19 +42,25 @@ const CTAContent = styled.div`
 `;
 
 const CTAText = styled(motion.div)`
-  color: ${theme.colors.text.light};
-  
+  color: #fff;
+  background: rgba(34,34,34,0.7);
+  padding: 2rem 2vw;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
   @media (max-width: 992px) {
     order: 2;
   }
 `;
 
 const CTATitle = styled(motion.h2)`
-  font-size: ${theme.typography.fontSize['4xl']};
+  font-size: 2.5rem;
+  font-weight: 700;
   margin-bottom: ${theme.spacing(5)};
   position: relative;
   display: inline-block;
-  
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.7);
+  background: none;
   &:after {
     content: '';
     position: absolute;
@@ -63,7 +69,6 @@ const CTATitle = styled(motion.h2)`
     width: 60px;
     height: 3px;
     background-color: ${theme.colors.secondary.main};
-    
     @media (max-width: 992px) {
       left: 50%;
       transform: translateX(-50%);
@@ -72,11 +77,13 @@ const CTATitle = styled(motion.h2)`
 `;
 
 const CTADescription = styled(motion.p)`
-  font-size: ${theme.typography.fontSize.lg};
+  font-size: 1.25rem;
   margin-bottom: ${theme.spacing(8)};
   line-height: 1.7;
   max-width: 500px;
-  
+  color: #fff;
+  background: none;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.7);
   @media (max-width: 992px) {
     margin-left: auto;
     margin-right: auto;
@@ -119,79 +126,79 @@ const ArtistDecoration = styled.div`
 `;
 
 const textVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.6,
-            ease: "easeOut"
-        }
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
     }
+  }
 };
 
 const imageVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.8,
-            ease: "easeOut"
-        }
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut"
     }
+  }
 };
 
 const ArtistCTA = () => {
-    return (
-        <CTAContainer>
-            <CTAContent>
-                <CTAText>
-                    <CTATitle
-                        variants={textVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                    >
-                        Meet the Artist
-                    </CTATitle>
-                    <CTADescription
-                        variants={textVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                    >
-                        Get to know Hemali Vakani, the creative force behind our sculptures. With a background in traditional sculpture techniques and a passion for innovation, Hemali brings unique vision and skill to every piece.
-                    </CTADescription>
-                    <motion.div
-                        variants={textVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                    >
-                        <Button
-                            to="/about"
-                            variant="secondary"
-                            size="large"
-                            elevation={true}
-                        >
-                            Learn More About Hemali
-                        </Button>
-                    </motion.div>
-                </CTAText>
+  return (
+    <CTAContainer>
+      <CTAContent>
+        <CTAText>
+          <CTATitle
+            variants={textVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            Meet the Artist
+          </CTATitle>
+          <CTADescription
+            variants={textVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            Get to know Hemali Vakani, the creative force behind our sculptures. With a background in traditional sculpture techniques and a passion for innovation, Hemali brings unique vision and skill to every piece.
+          </CTADescription>
+          <motion.div
+            variants={textVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <Button
+              to="/about"
+              variant="secondary"
+              size="large"
+              elevation={true}
+            >
+              Learn More About Hemali
+            </Button>
+          </motion.div>
+        </CTAText>
 
-                <CTAImageWrapper
-                    variants={imageVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                >
-                    <ArtistImage src={artistImage} alt="Hemali Vakani, Sculptor" />
-                    <ArtistDecoration />
-                </CTAImageWrapper>
-            </CTAContent>
-        </CTAContainer>
-    );
+        <CTAImageWrapper
+          variants={imageVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <ArtistImage src={artistImage} alt="Hemali Vakani, Sculptor" />
+          <ArtistDecoration />
+        </CTAImageWrapper>
+      </CTAContent>
+    </CTAContainer>
+  );
 };
 
 export default ArtistCTA; 

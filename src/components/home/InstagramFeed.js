@@ -177,53 +177,31 @@ const itemVariants = {
 
 const InstagramFeed = () => {
   return (
-    <Section
-      id="instagram-feed"
-      title="Follow Our Journey"
-      subtitle="Stay updated with our latest creations and behind-the-scenes moments on Instagram"
-      bgColor="light"
-      align="center"
-    >
-      <FeedContainer>
-        {instagramPosts.map((post, index) => (
-          <PostItem
-            key={post.id}
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            custom={index}
-            variants={itemVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            <PostImage src={post.image} alt={`Instagram post ${post.id}`} />
-            <PostOverlay className="post-overlay">
-              <InstagramIcon>
-                <FaInstagram />
-              </InstagramIcon>
-              <PostStats>
-                <span>❤️ {post.likes}</span>
-                <span>💬 {post.comments}</span>
-              </PostStats>
-              <PostCaption>{post.caption}</PostCaption>
-            </PostOverlay>
-          </PostItem>
-        ))}
-      </FeedContainer>
-
-      <FollowContainer>
-        <motion.a
+    <FeedContainer>
+      {instagramPosts.map((post, index) => (
+        <PostItem
+          key={post.id}
           href="https://instagram.com"
           target="_blank"
           rel="noopener noreferrer"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          custom={index}
+          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
         >
-          <FaInstagram /> Follow @depthanddimension
-        </motion.a>
-      </FollowContainer>
-    </Section>
+          <PostImage src={post.image} alt={`Instagram post ${post.id}`} />
+          <PostOverlay className="post-overlay">
+            <InstagramIcon><FaInstagram /></InstagramIcon>
+            <PostStats>
+              <span>❤️ {post.likes}</span>
+              <span>💬 {post.comments}</span>
+            </PostStats>
+            <PostCaption>{post.caption}</PostCaption>
+          </PostOverlay>
+        </PostItem>
+      ))}
+    </FeedContainer>
   );
 };
 

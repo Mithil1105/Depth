@@ -23,7 +23,7 @@ const HeroContainer = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url(${heroImageUrl});
+    background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.65)), url(${heroImageUrl});
     background-size: cover;
     background-position: center;
     z-index: -1;
@@ -32,20 +32,22 @@ const HeroContainer = styled.div`
 
 const HeroContent = styled(motion.div)`
   text-align: center;
-  color: ${theme.colors.text.light};
+  color: #fff;
   max-width: 800px;
   padding: 0 ${theme.spacing(5)};
   z-index: 2;
 `;
 
 const Tagline = styled(motion.h1)`
-  font-size: ${theme.typography.fontSize['6xl']};
-  margin-bottom: ${theme.spacing(6)};
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
   line-height: 1.2;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  
+  color: #FFF8E1;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.95), 0 1px 0 #333;
+  letter-spacing: 1px;
   @media (max-width: 768px) {
-    font-size: ${theme.typography.fontSize['4xl']};
+    font-size: 2rem;
   }
 `;
 

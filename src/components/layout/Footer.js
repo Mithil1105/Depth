@@ -151,17 +151,11 @@ const Footer = () => {
           <h4>About Us</h4>
           <p>At Depth & Dimension, we transform clay, stone, and imagination into timeless masterpieces, preserving the soul of sculpture through handmade, intricate forms.</p>
           <SocialLinks>
-            <SocialIcon href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-              <FaFacebook />
-            </SocialIcon>
-            <SocialIcon href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+            <SocialIcon href="https://www.instagram.com/depth_n_dimension/" target="_blank" rel="noopener noreferrer">
               <FaInstagram />
             </SocialIcon>
-            <SocialIcon href="https://pinterest.com" target="_blank" rel="noopener noreferrer">
-              <FaPinterest />
-            </SocialIcon>
-            <SocialIcon href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-              <FaTwitter />
+            <SocialIcon href="https://g.co/kgs/wqSB6U8" target="_blank" rel="noopener noreferrer">
+              <FaMapMarkerAlt />
             </SocialIcon>
           </SocialLinks>
         </FooterSection>
@@ -181,15 +175,11 @@ const Footer = () => {
           <h4>Contact Us</h4>
           <ContactItem>
             <FaMapMarkerAlt />
-            <p>B/10 Sankalp estate, Rakhial, Ahmedabad, Gujarat</p>
-          </ContactItem>
-          <ContactItem>
-            <FaPhone />
-            <p>+91 98987 17128</p>
+            <p>WP-46, Sanand GIDC, Bol Gam, Sanand 382110</p>
           </ContactItem>
           <ContactItem>
             <FaEnvelope />
-            <p>info@depthanddimension.com</p>
+            <p><a href="mailto:depthndimension@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>depthndimension@gmail.com</a></p>
           </ContactItem>
         </FooterSection>
       </FooterContent>

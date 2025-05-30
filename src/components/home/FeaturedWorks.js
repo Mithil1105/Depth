@@ -1,209 +1,249 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Section from '../common/Section';
 import Button from '../common/Button';
 import theme from '../../styles/theme';
 
-// Placeholder images for now
-const featuredWorks = [
-    {
-        id: 1,
-        title: 'Graceful Ascent',
-        category: 'Bronze',
-        description: 'A figurative sculpture capturing the delicate balance between strength and vulnerability.',
-        image: 'https://images.unsplash.com/photo-1637420425895-97a239041d53?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
-    },
-    {
-        id: 2,
-        title: 'Eternal Bond',
-        category: 'Stone',
-        description: 'A minimalist interpretation of connection and relationship across time and space.',
-        image: 'https://images.unsplash.com/photo-1575995872537-3793d29d972c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
-    },
-    {
-        id: 3,
-        title: 'Whispers of Nature',
-        category: 'Terracotta',
-        description: 'An organic form that draws inspiration from flowing water and windswept landscapes.',
-        image: 'https://images.unsplash.com/photo-1558999539-7a9241f80305?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
-    }
-];
-
-const WorksGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: ${theme.spacing(8)};
-  margin-bottom: ${theme.spacing(10)};
-  
-  @media (max-width: 992px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  @media (max-width: 576px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const WorkItem = styled(motion.div)`
-  border-radius: ${theme.borderRadius.medium};
-  overflow: hidden;
-  box-shadow: ${theme.shadows.medium};
-  transition: transform ${theme.transitions.medium};
-  background-color: ${theme.colors.background.paper};
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: ${theme.shadows.large};
-    
-    .work-image img {
-      transform: scale(1.05);
-    }
-  }
-`;
-
-const WorkImageContainer = styled.div`
-  position: relative;
-  overflow: hidden;
-  height: 300px;
-  
-  &:before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 30%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-    z-index: 1;
-  }
-`;
-
-const WorkImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform ${theme.transitions.medium};
-`;
-
-const WorkCategory = styled.span`
-  position: absolute;
-  top: ${theme.spacing(4)};
-  right: ${theme.spacing(4)};
-  background-color: ${theme.colors.secondary.main};
-  color: ${theme.colors.text.primary};
-  padding: ${theme.spacing(1)} ${theme.spacing(3)};
-  border-radius: ${theme.borderRadius.small};
-  font-size: ${theme.typography.fontSize.sm};
-  font-weight: ${theme.typography.fontWeight.medium};
-  z-index: 2;
-`;
-
-const WorkContent = styled.div`
-  padding: ${theme.spacing(6)};
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-`;
-
-const WorkTitle = styled.h3`
-  margin-bottom: ${theme.spacing(2)};
-  font-size: ${theme.typography.fontSize['2xl']};
-`;
-
-const WorkDescription = styled.p`
-  color: ${theme.colors.text.secondary};
-  margin-bottom: ${theme.spacing(6)};
-  flex-grow: 1;
-`;
-
-const ViewLink = styled(Link)`
-  color: ${theme.colors.primary.main};
-  font-weight: ${theme.typography.fontWeight.medium};
-  display: flex;
-  align-items: center;
-  
-  &:after {
-    content: '→';
-    margin-left: ${theme.spacing(2)};
-    transition: transform ${theme.transitions.short};
-  }
-  
-  &:hover {
-    color: ${theme.colors.primary.dark};
-    
-    &:after {
-      transform: translateX(5px);
-    }
-  }
-`;
-
-const ButtonContainer = styled.div`
-  text-align: center;
-  margin-top: ${theme.spacing(10)};
-`;
-
-const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: i => ({
-        opacity: 1,
-        y: 0,
-        transition: {
-            delay: i * 0.2,
-            duration: 0.6,
-            ease: "easeOut"
-        }
-    })
+// Import gallery images and descriptions (copy logic from GalleryPage.js)
+const importAll = (r) => {
+  return r.keys().map(filename => ({
+    src: r(filename),
+    name: filename.replace('./', ''),
+  }));
 };
 
-const FeaturedWorks = () => {
-    return (
-        <Section
-            id="featured-works"
-            title="Our Iconic Sculptures"
-            subtitle="Discover our most celebrated pieces that embody our artistic philosophy"
-            bgColor="light"
-            align="center"
-        >
-            <WorksGrid>
-                {featuredWorks.map((work, index) => (
-                    <WorkItem
-                        key={work.id}
-                        custom={index}
-                        variants={itemVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                    >
-                        <WorkImageContainer className="work-image">
-                            <WorkImage src={work.image} alt={work.title} />
-                            <WorkCategory>{work.category}</WorkCategory>
-                        </WorkImageContainer>
-                        <WorkContent>
-                            <WorkTitle>{work.title}</WorkTitle>
-                            <WorkDescription>{work.description}</WorkDescription>
-                            <ViewLink to={`/gallery/${work.id}`}>View Details</ViewLink>
-                        </WorkContent>
-                    </WorkItem>
-                ))}
-            </WorksGrid>
+const imageDescriptions = {
+  'Picture1.png': {
+    title: 'Lion Sculpture made from Metal',
+    height: '13 ft. height',
+    material: 'Metal',
+  },
+  'Picture2.png': {
+    title: 'Deer Sculpture made from Metal',
+    height: 'Life size',
+    material: 'Metal',
+  },
+  'Picture3.png': {
+    title: 'Lion Sculpture made from Metal',
+    height: 'Life size',
+    material: 'Metal',
+  },
+  // ... (add more as needed, or import from a shared file)
+};
 
-            <ButtonContainer>
-                <Button
-                    to="/gallery"
-                    variant="primary"
-                    size="medium"
-                    elevation={true}
-                >
-                    Explore Full Collection
-                </Button>
-            </ButtonContainer>
-        </Section>
-    );
+const galleryImages = importAll(require.context('../../assets/images/gallary', false, /\.(png|jpe?g|svg)$/));
+
+const FeaturedWorksContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 500px;
+`;
+
+const Carousel = styled.div`
+  width: 100%;
+  max-width: 1100px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ArrowButton = styled.button`
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  color: ${theme.colors.primary.main};
+  font-size: 2rem;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  transition: background 0.2s;
+  &:hover {
+    background: ${theme.colors.secondary.main};
+    color: #fff;
+  }
+`;
+
+const LeftArrow = styled(ArrowButton)`
+  left: -60px;
+`;
+const RightArrow = styled(ArrowButton)`
+  right: -60px;
+`;
+
+const SlidesRow = styled(motion.div)`
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  justify-content: center;
+`;
+
+const Slide = styled(motion.div)`
+  width: 320px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  min-width: 0;
+  @media (max-width: 1100px) {
+    width: 280px;
+    padding: 1.2rem;
+  }
+  @media (max-width: 900px) {
+    width: 220px;
+    padding: 1rem;
+  }
+  @media (max-width: 768px) {
+    width: 100vw;
+    max-width: 95vw;
+    padding: 1rem;
+  }
+`;
+
+const SlideImage = styled.img`
+  width: 100%;
+  max-width: 250px;
+  max-height: 250px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  background: #f8f5f2;
+`;
+
+const SlideTitle = styled.h3`
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: ${theme.colors.primary.main};
+  text-align: center;
+`;
+const SlideDetails = styled.div`
+  color: ${theme.colors.text.primary};
+  font-size: 1.05rem;
+  text-align: center;
+  margin-bottom: 1rem;
+`;
+const SlideMaterial = styled.div`
+  color: ${theme.colors.secondary.dark};
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+`;
+const SlideHeight = styled.div`
+  color: ${theme.colors.text.secondary};
+  font-size: 1rem;
+`;
+
+const FeaturedWorks = () => {
+  const [index, setIndex] = useState(0);
+  const slides = galleryImages.filter(img => imageDescriptions[img.name]);
+  const numToShow = 3;
+  const autoRotateRef = useRef();
+
+  // Responsive: show 1 on mobile
+  const [numVisible, setNumVisible] = useState(numToShow);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 800) setNumVisible(1);
+      else setNumVisible(numToShow);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Auto-rotation with reset on manual navigation
+  const resetAutoRotate = React.useCallback(() => {
+    if (autoRotateRef.current) clearInterval(autoRotateRef.current);
+    autoRotateRef.current = setInterval(() => {
+      setIndex(prev => (prev + numVisible) % slides.length);
+    }, 4000);
+  }, [numVisible, slides.length]);
+
+  useEffect(() => {
+    if (slides.length <= numVisible) return; // Don't rotate if not enough slides
+    resetAutoRotate();
+    return () => clearInterval(autoRotateRef.current);
+  }, [numVisible, slides.length, resetAutoRotate]);
+
+  const goLeft = () => {
+    setIndex(prev => (prev - numVisible + slides.length) % slides.length);
+    resetAutoRotate();
+  };
+  const goRight = () => {
+    setIndex(prev => (prev + numVisible) % slides.length);
+    resetAutoRotate();
+  };
+
+  // Get the current set of slides
+  const getSlides = () => {
+    if (slides.length === 0) return [];
+    const arr = [];
+    for (let i = 0; i < Math.min(numVisible, slides.length); i++) {
+      const idx = (index + i) % slides.length;
+      arr.push(slides[idx]);
+    }
+    return arr;
+  };
+  const currentSlides = getSlides();
+
+  const arrowsDisabled = slides.length <= numVisible;
+
+  return (
+    <Section
+      id="featured-works"
+      title="Our Iconic Sculptures"
+      subtitle="Discover our most celebrated pieces that embody our artistic philosophy"
+      bgColor="light"
+      align="center"
+    >
+      <FeaturedWorksContainer>
+        <Carousel>
+          <AnimatePresence initial={false} mode="wait">
+            <SlidesRow
+              key={index}
+              initial={{ opacity: 0, x: 60 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -60 }}
+              transition={{ duration: 0.4 }}
+            >
+              {currentSlides.map((current, idx) => {
+                const desc = current ? imageDescriptions[current.name] : null;
+                return (
+                  <Slide key={current.name}>
+                    <SlideImage src={current.src} alt={desc?.title} />
+                    <SlideTitle>{desc?.title}</SlideTitle>
+                    <SlideDetails>
+                      <SlideMaterial><b>Material:</b> {desc?.material}</SlideMaterial>
+                      <SlideHeight><b>Height:</b> {desc?.height}</SlideHeight>
+                    </SlideDetails>
+                    <Button to="/gallery" variant="primary" size="medium" elevation={true}>
+                      View Details
+                    </Button>
+                  </Slide>
+                );
+              })}
+            </SlidesRow>
+          </AnimatePresence>
+        </Carousel>
+      </FeaturedWorksContainer>
+    </Section>
+  );
 };
 
 export default FeaturedWorks; 

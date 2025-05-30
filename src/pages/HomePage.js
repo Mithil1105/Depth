@@ -4,7 +4,6 @@ import IntroSection from '../components/home/IntroSection';
 import FeaturedWorks from '../components/home/FeaturedWorks';
 import ArtistCTA from '../components/home/ArtistCTA';
 import TestimonialsSection from '../components/home/TestimonialsSection';
-import InstagramFeed from '../components/home/InstagramFeed';
 import { Helmet } from 'react-helmet';
 
 const HomePage = () => {
@@ -24,7 +23,6 @@ const HomePage = () => {
             <FeaturedWorks />
             <ArtistCTA />
             <TestimonialsSection />
-            <InstagramFeed />
         </>
     );
 };

@@ -75,6 +75,12 @@ const TextContent = styled(motion.div)`
 const Heading = styled(motion.h2)`
   position: relative;
   margin-bottom: ${theme.spacing(6)};
+  color: #2C3A2D;
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: rgba(255,255,255,0.85);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
   
   &:after {
     content: '';
@@ -90,8 +96,12 @@ const Heading = styled(motion.h2)`
 const Description = styled(motion.p)`
   margin-bottom: ${theme.spacing(6)};
   line-height: 1.8;
-  font-size: ${theme.typography.fontSize.lg};
-  color: ${theme.colors.text.secondary};
+  font-size: 1.25rem;
+  color: #2C3A2D;
+  font-weight: 500;
+  background: rgba(255,255,255,0.85);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
 `;
 
 const HighlightPoint = styled(motion.div)`
@@ -131,98 +141,98 @@ const AnimatedText = styled(motion.p)`
 `;
 
 const textVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.6, ease: "easeOut" }
-    }
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
 };
 
 const imageVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: { duration: 0.8, ease: "easeOut" }
-    }
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.8, ease: "easeOut" }
+  }
 };
 
 const IntroSection = () => {
-    // Using a placeholder image
-    const sculptorImage = 'https://images.unsplash.com/photo-1473621038790-b778b4750efe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80';
+  // Using a placeholder image
+  const sculptorImage = 'https://images.unsplash.com/photo-1473621038790-b778b4750efe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80';
 
-    return (
-        <Section id="what-we-do" title="What We Do" padding="large">
-            <ContentWrapper>
-                <ImageWrapper
-                    variants={imageVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                >
-                    <img src={sculptorImage} alt="Sculptor at work" />
-                </ImageWrapper>
+  return (
+    <Section id="what-we-do" title="What We Do" padding="large">
+      <ContentWrapper>
+        <ImageWrapper
+          variants={imageVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <img src={sculptorImage} alt="Sculptor at work" />
+        </ImageWrapper>
 
-                <TextContent>
-                    <Heading
-                        variants={textVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                    >
-                        Transforming Clay, Stone, and Imagination
-                    </Heading>
+        <TextContent>
+          <Heading
+            variants={textVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            Transforming Clay, Stone, and Imagination
+          </Heading>
 
-                    <Description
-                        variants={textVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                    >
-                        At Depth & Dimension, we create handcrafted sculptures that capture emotion, movement, and life.
-                        Each piece tells a story, inviting viewers to connect and reflect.
-                    </Description>
+          <Description
+            variants={textVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            At Depth & Dimension, we create handcrafted sculptures that capture emotion, movement, and life.
+            Each piece tells a story, inviting viewers to connect and reflect.
+          </Description>
 
-                    <HighlightPoint
-                        variants={textVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                    >
-                        <span>Traditional craftsmanship with contemporary vision</span>
-                    </HighlightPoint>
+          <HighlightPoint
+            variants={textVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <span>Traditional craftsmanship with contemporary vision</span>
+          </HighlightPoint>
 
-                    <HighlightPoint
-                        variants={textVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                    >
-                        <span>Custom commissions for homes, gardens, and public spaces</span>
-                    </HighlightPoint>
+          <HighlightPoint
+            variants={textVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <span>Custom commissions for homes, gardens, and public spaces</span>
+          </HighlightPoint>
 
-                    <HighlightPoint
-                        variants={textVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                    >
-                        <span>Eco-conscious materials and sustainable practices</span>
-                    </HighlightPoint>
+          <HighlightPoint
+            variants={textVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <span>Eco-conscious materials and sustainable practices</span>
+          </HighlightPoint>
 
-                    <AnimatedText
-                        variants={textVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                    >
-                        We don't just create sculptures; we breathe life into art.
-                    </AnimatedText>
-                </TextContent>
-            </ContentWrapper>
-        </Section>
-    );
+          <AnimatedText
+            variants={textVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            We don't just create sculptures; we breathe life into art.
+          </AnimatedText>
+        </TextContent>
+      </ContentWrapper>
+    </Section>
+  );
 };
 
 export default IntroSection; 

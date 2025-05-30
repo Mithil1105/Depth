@@ -10,7 +10,8 @@ const HeaderContainer = styled.header`
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: ${props => props.scrolled ? 'rgba(254, 251, 243, 0.95)' : 'transparent'};
+  background: rgba(254, 251, 243, 0.85); /* Always a subtle background */
+  backdrop-filter: blur(6px);
   transition: all ${theme.transitions.medium};
   box-shadow: ${props => props.scrolled ? theme.shadows.small : 'none'};
   padding: ${props => props.scrolled ? theme.spacing(3) : theme.spacing(6)} 0;
@@ -30,8 +31,8 @@ const Logo = styled(Link)`
   font-family: ${theme.typography.fontFamily.heading};
   font-weight: ${theme.typography.fontWeight.bold};
   font-size: ${theme.typography.fontSize['2xl']};
-  color: ${props => props.scrolled ? theme.colors.primary.main : theme.colors.text.light};
-  text-shadow: ${props => props.scrolled ? 'none' : '0 2px 4px rgba(0,0,0,0.2)'};
+  color: ${theme.colors.primary.main};
+  text-shadow: none;
   letter-spacing: 1px;
   cursor: pointer;
   z-index: 1001;
@@ -68,8 +69,8 @@ const NavLinks = styled.nav`
 
 const NavLink = styled(Link)`
   margin: 0 ${theme.spacing(4)};
-  color: ${props => props.scrolled ? theme.colors.text.primary : theme.colors.text.light};
-  text-shadow: ${props => props.scrolled ? 'none' : '0 2px 4px rgba(0,0,0,0.2)'};
+  color: ${theme.colors.text.primary};
+  text-shadow: none;
   font-weight: ${theme.typography.fontWeight.medium};
   position: relative;
   
@@ -104,7 +105,7 @@ const MobileMenuButton = styled.button`
   display: none;
   background: none;
   border: none;
-  color: ${props => props.scrolled ? theme.colors.primary.main : theme.colors.text.light};
+  color: ${theme.colors.primary.main};
   font-size: ${theme.typography.fontSize['2xl']};
   cursor: pointer;
   z-index: 1001;
@@ -126,54 +127,54 @@ const Overlay = styled.div`
 `;
 
 const Header = () => {
-    const [scrolled, setScrolled] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setScrolled(true);
-            } else {
-                setScrolled(false);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
     };
 
-    return (
-        <HeaderContainer scrolled={scrolled}>
-            <NavContainer>
-                <Logo to="/" scrolled={scrolled}>
-                    Depth <span>&</span> Dimension
-                </Logo>
+    window.addEventListener('scroll', handleScroll);
 
-                <MobileMenuButton onClick={toggleMenu} scrolled={scrolled}>
-                    {isMenuOpen ? <FaTimes /> : <FaBars />}
-                </MobileMenuButton>
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
-                <NavLinks isOpen={isMenuOpen}>
-                    <NavLink to="/" scrolled={scrolled}>Home</NavLink>
-                    <NavLink to="/about" scrolled={scrolled}>About</NavLink>
-                    <NavLink to="/gallery" scrolled={scrolled}>Gallery</NavLink>
-                    <NavLink to="/commissions" scrolled={scrolled}>Commissions</NavLink>
-                    <NavLink to="/blog" scrolled={scrolled}>Blog</NavLink>
-                    <NavLink to="/testimonials" scrolled={scrolled}>Testimonials</NavLink>
-                    <NavLink to="/contact" scrolled={scrolled}>Contact</NavLink>
-                </NavLinks>
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-                <Overlay isOpen={isMenuOpen} onClick={toggleMenu} />
-            </NavContainer>
-        </HeaderContainer>
-    );
+  return (
+    <HeaderContainer scrolled={scrolled}>
+      <NavContainer>
+        <Logo to="/" scrolled={scrolled}>
+          Depth <span>&</span> Dimension
+        </Logo>
+
+        <MobileMenuButton onClick={toggleMenu} scrolled={scrolled}>
+          {isMenuOpen ? <FaTimes /> : <FaBars />}
+        </MobileMenuButton>
+
+        <NavLinks isOpen={isMenuOpen}>
+          <NavLink to="/" scrolled={scrolled}>Home</NavLink>
+          <NavLink to="/about" scrolled={scrolled}>About</NavLink>
+          <NavLink to="/gallery" scrolled={scrolled}>Gallery</NavLink>
+          <NavLink to="/commissions" scrolled={scrolled}>Commissions</NavLink>
+          <NavLink to="/blog" scrolled={scrolled}>Blog</NavLink>
+          <NavLink to="/testimonials" scrolled={scrolled}>Testimonials</NavLink>
+          <NavLink to="/contact" scrolled={scrolled}>Contact</NavLink>
+        </NavLinks>
+
+        <Overlay isOpen={isMenuOpen} onClick={toggleMenu} />
+      </NavContainer>
+    </HeaderContainer>
+  );
 };
 
 export default Header; 
