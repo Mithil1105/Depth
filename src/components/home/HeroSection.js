@@ -3,9 +3,10 @@ import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import Button from '../common/Button';
 import theme from '../../styles/theme';
+import heroImage from '../../assets/images/depthhh/about us/Picture54.png';
 
 // Import a placeholder image for now - this should be replaced with actual sculpture images
-const heroImageUrl = 'https://images.unsplash.com/photo-1549887534-1541e9326642?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80';
+const heroImageUrl = heroImage;
 
 const HeroContainer = styled.div`
   height: 100vh;
@@ -43,8 +44,8 @@ const Tagline = styled(motion.h1)`
   font-weight: 700;
   margin-bottom: 2.5rem;
   line-height: 1.2;
-  color: #FFF8E1;
-  text-shadow: 0 4px 24px rgba(0,0,0,0.95), 0 1px 0 #333;
+  color: #2d3a26;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.18), 0 1px 0 #333;
   letter-spacing: 1px;
   @media (max-width: 768px) {
     font-size: 2rem;
@@ -141,12 +142,12 @@ const HeroSection = () => {
                 animate="visible"
             >
                 <Tagline variants={itemVariants}>
-                    Crafting Timeless Art, One Sculpture at a Time
+                    We Sculpt Legacies — From Stone to Story.
                 </Tagline>
 
                 <ButtonGroup variants={itemVariants}>
                     <Button
-                        to="/gallery"
+                        to="/projects"
                         variant="primary"
                         size="large"
                         elevation={true}

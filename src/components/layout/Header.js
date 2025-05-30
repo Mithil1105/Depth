@@ -164,10 +164,8 @@ const Header = () => {
         <NavLinks isOpen={isMenuOpen}>
           <NavLink to="/" scrolled={scrolled}>Home</NavLink>
           <NavLink to="/about" scrolled={scrolled}>About</NavLink>
-          <NavLink to="/gallery" scrolled={scrolled}>Gallery</NavLink>
-          <NavLink to="/commissions" scrolled={scrolled}>Commissions</NavLink>
-          <NavLink to="/blog" scrolled={scrolled}>Blog</NavLink>
-          <NavLink to="/testimonials" scrolled={scrolled}>Testimonials</NavLink>
+          <NavLink to="/team" scrolled={scrolled}>Our Team</NavLink>
+          <NavLink to="/projects" scrolled={scrolled}>Projects</NavLink>
           <NavLink to="/contact" scrolled={scrolled}>Contact</NavLink>
         </NavLinks>
 
