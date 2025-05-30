@@ -5,11 +5,20 @@ import FeaturedWorks from '../components/home/FeaturedWorks';
 import ArtistCTA from '../components/home/ArtistCTA';
 import TestimonialsSection from '../components/home/TestimonialsSection';
 import { Helmet } from 'react-helmet';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
+    const navigate = useNavigate();
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    // Handler to view project from homepage
+    const handleViewProject = (projectId) => {
+        // Store the project id in localStorage
+        localStorage.setItem('openProjectId', projectId);
+        navigate('/projects');
+    };
 
     return (
         <>
@@ -20,7 +29,7 @@ const HomePage = () => {
 
             <HeroSection />
             <IntroSection />
-            <FeaturedWorks />
+            <FeaturedWorks onViewProject={handleViewProject} />
             <ArtistCTA />
             <TestimonialsSection />
         </>

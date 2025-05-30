@@ -15,6 +15,9 @@ const HeaderContainer = styled.header`
   transition: all ${theme.transitions.medium};
   box-shadow: ${props => props.scrolled ? theme.shadows.small : 'none'};
   padding: ${props => props.scrolled ? theme.spacing(3) : theme.spacing(6)} 0;
+  @media (max-width: 576px) {
+    padding: ${theme.spacing(2)} 0;
+  }
 `;
 
 const NavContainer = styled.div`
@@ -25,6 +28,9 @@ const NavContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 ${theme.spacing(5)};
+  @media (max-width: 576px) {
+    padding: 0 ${theme.spacing(2)};
+  }
 `;
 
 const Logo = styled(Link)`
@@ -44,6 +50,12 @@ const Logo = styled(Link)`
   
   &:hover {
     color: ${theme.colors.primary.light};
+  }
+  @media (max-width: 576px) {
+    font-size: ${theme.typography.fontSize.lg};
+  }
+  @media (max-width: 400px) {
+    font-size: 1.1rem;
   }
 `;
 
@@ -164,7 +176,6 @@ const Header = () => {
         <NavLinks isOpen={isMenuOpen}>
           <NavLink to="/" scrolled={scrolled}>Home</NavLink>
           <NavLink to="/about" scrolled={scrolled}>About</NavLink>
-          <NavLink to="/team" scrolled={scrolled}>Our Team</NavLink>
           <NavLink to="/projects" scrolled={scrolled}>Projects</NavLink>
           <NavLink to="/contact" scrolled={scrolled}>Contact</NavLink>
         </NavLinks>

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Section from '../common/Section';
 import theme from '../../styles/theme';
 import { FaLinkedin, FaInstagram, FaEnvelope } from 'react-icons/fa';
+import hemaliImg from '../../assets/images/depthhh/achievements/Hemali/hemali.jpg';
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -188,8 +189,8 @@ const socialVariants = {
 };
 
 const Founder = () => {
-    // Replace with actual founder image
-    const founderImage = 'https://images.unsplash.com/photo-1567532939604-b6b5b398244f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80';
+    // Use the provided local image for Hemali Vakani
+    const founderImage = hemaliImg;
 
     const credentials = [
         "Diploma in Sculpture",

@@ -19,7 +19,7 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
             {/* <Route path="/gallery" element={<GalleryPage />} /> */}
             <Route path="/contact" element={<ContactPage />} />
-            <Route path="/team" element={<TeamPage />} />
+            {/* <Route path="/team" element={<TeamPage />} /> */}
             <Route path="/projects" element={<ProjectsPage />} />
             {/* Other routes will be added as their pages are developed */}
             {/* <Route path="/commissions" element={<CommissionsPage />} /> */}

@@ -8,6 +8,9 @@ const FooterContainer = styled.footer`
   background-color: ${theme.colors.primary.dark};
   color: ${theme.colors.text.light};
   padding: ${theme.spacing(15)} 0 ${theme.spacing(8)};
+  @media (max-width: 576px) {
+    padding: ${theme.spacing(7)} 0 ${theme.spacing(3)};
+  }
 `;
 
 const FooterContent = styled.div`
@@ -24,6 +27,7 @@ const FooterContent = styled.div`
   
   @media (max-width: 576px) {
     grid-template-columns: 1fr;
+    padding: 0 ${theme.spacing(2)};
   }
 `;
 

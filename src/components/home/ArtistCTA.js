@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import Button from '../common/Button';
 import theme from '../../styles/theme';
+import hemaliImg from '../../assets/images/depthhh/achievements/Hemali/hemali.jpg';
 
 // Placeholder image for now
 const artistImage = 'https://images.unsplash.com/photo-1541439695141-1a586b3fc4e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80';
@@ -193,7 +194,7 @@ const ArtistCTA = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <ArtistImage src={artistImage} alt="Hemali Vakani, Sculptor" />
+          <ArtistImage src={hemaliImg} alt="Hemali Vakani, Sculptor" />
           <ArtistDecoration />
         </CTAImageWrapper>
       </CTAContent>

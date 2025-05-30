@@ -5,6 +5,8 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Section from '../common/Section';
 import Button from '../common/Button';
 import theme from '../../styles/theme';
+import nalsarovar1 from '../../assets/images/depthhh/Archive/nalsarovar/Picture117.png';
+import shakti1 from '../../assets/images/depthhh/Archive/51shakti/Picture115.png';
 
 // Import gallery images and descriptions (copy logic from GalleryPage.js)
 const importAll = (r) => {
@@ -34,6 +36,37 @@ const imageDescriptions = {
 };
 
 const galleryImages = importAll(require.context('../../assets/images/gallary', false, /\.(png|jpe?g|svg)$/));
+
+const iconicProjects = [
+  {
+    title: 'Nalsarovar Wetland Reserve',
+    image: nalsarovar1,
+    location: 'Nalsarovar Bird Sanctuary',
+    description: 'Monumental sculptures and installations in Gujarat\'s premier wetland reserve.',
+    highlights: [
+      'Monumental main entrance gate (24m x 9m x 3.5m)',
+      'Metal flamingo sculptures (9 ft height)',
+      'Life-size FRP flamingo island installation',
+      'Informative signage and fountains (4m diameter)',
+      'Pelican marble sculptures'
+    ],
+    id: 'nalsarovar'
+  },
+  {
+    title: '51 Shaktipeeth Parikrama Path',
+    image: shakti1,
+    location: 'Gabbar Hill, Ambaji',
+    description: 'Sacred pathway with monumental murals and selfie points celebrating Shakti temples.',
+    highlights: [
+      'CNC-cut "Maa Ambe" metal sculpture',
+      'Murals of Ashapura Mata, Bahuchraji, Chamunda Devi',
+      'Rukmini Devi, Khodiyar, and Umiya Mata murals',
+      'FRP and metal murals (12 ft x 8 ft or larger)',
+      'Immersive selfie points and photo opportunities'
+    ],
+    id: 'shaktipeeth'
+  }
+];
 
 const FeaturedWorksContainer = styled.div`
   display: flex;
@@ -149,101 +182,88 @@ const SlideHeight = styled.div`
   font-size: 1rem;
 `;
 
-const FeaturedWorks = () => {
-  const [index, setIndex] = useState(0);
-  const slides = galleryImages.filter(img => imageDescriptions[img.name]);
-  const numToShow = 3;
-  const autoRotateRef = useRef();
+const ProjectsGrid = styled.div`
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1.5rem;
+  align-items: center;
+  }
+`;
 
-  // Responsive: show 1 on mobile
-  const [numVisible, setNumVisible] = useState(numToShow);
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 800) setNumVisible(1);
-      else setNumVisible(numToShow);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+const ProjectCard = styled.div`
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  width: 340px;
+  max-width: 95vw;
+`;
 
-  // Auto-rotation with reset on manual navigation
-  const resetAutoRotate = React.useCallback(() => {
-    if (autoRotateRef.current) clearInterval(autoRotateRef.current);
-    autoRotateRef.current = setInterval(() => {
-      setIndex(prev => (prev + numVisible) % slides.length);
-    }, 4000);
-  }, [numVisible, slides.length]);
+const ProjectImage = styled.img`
+  width: 100%;
+  max-width: 250px;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  background: #f8f5f2;
+`;
 
-  useEffect(() => {
-    if (slides.length <= numVisible) return; // Don't rotate if not enough slides
-    resetAutoRotate();
-    return () => clearInterval(autoRotateRef.current);
-  }, [numVisible, slides.length, resetAutoRotate]);
+const ProjectTitle = styled.h3`
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: ${theme.colors.primary.main};
+  text-align: center;
+`;
+const ProjectLocation = styled.div`
+  color: ${theme.colors.text.secondary};
+  font-size: 1.05rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+`;
+const ProjectDescription = styled.div`
+  color: ${theme.colors.text.primary};
+  font-size: 1.05rem;
+  text-align: center;
+  margin-bottom: 1rem;
+`;
+const ProjectHighlights = styled.ul`
+  color: ${theme.colors.secondary.dark};
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.2em;
+  text-align: left;
+`;
 
-  const goLeft = () => {
-    setIndex(prev => (prev - numVisible + slides.length) % slides.length);
-    resetAutoRotate();
-  };
-  const goRight = () => {
-    setIndex(prev => (prev + numVisible) % slides.length);
-    resetAutoRotate();
-  };
-
-  // Get the current set of slides
-  const getSlides = () => {
-    if (slides.length === 0) return [];
-    const arr = [];
-    for (let i = 0; i < Math.min(numVisible, slides.length); i++) {
-      const idx = (index + i) % slides.length;
-      arr.push(slides[idx]);
-    }
-    return arr;
-  };
-  const currentSlides = getSlides();
-
-  const arrowsDisabled = slides.length <= numVisible;
-
-  return (
-    <Section
-      id="featured-works"
-      title="Our Iconic Sculptures"
-      subtitle="Discover our most celebrated pieces that embody our artistic philosophy"
-      bgColor="light"
-      align="center"
-    >
-      <FeaturedWorksContainer>
-        <Carousel>
-          <AnimatePresence initial={false} mode="wait">
-            <SlidesRow
-              key={index}
-              initial={{ opacity: 0, x: 60 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -60 }}
-              transition={{ duration: 0.4 }}
-            >
-              {currentSlides.map((current, idx) => {
-                const desc = current ? imageDescriptions[current.name] : null;
-                return (
-                  <Slide key={current.name}>
-                    <SlideImage src={current.src} alt={desc?.title} />
-                    <SlideTitle>{desc?.title}</SlideTitle>
-                    <SlideDetails>
-                      <SlideMaterial><b>Material:</b> {desc?.material}</SlideMaterial>
-                      <SlideHeight><b>Height:</b> {desc?.height}</SlideHeight>
-                    </SlideDetails>
-                    <Button to="/gallery" variant="primary" size="medium" elevation={true}>
-                      View Details
-                    </Button>
-                  </Slide>
-                );
-              })}
-            </SlidesRow>
-          </AnimatePresence>
-        </Carousel>
-      </FeaturedWorksContainer>
-    </Section>
-  );
-};
+const FeaturedWorks = ({ onViewProject }) => (
+  <Section id="iconic-projects" title="Iconic Projects" align="center">
+    <ProjectsGrid>
+      {iconicProjects.map((project, idx) => (
+        <ProjectCard key={idx}>
+          <ProjectImage src={project.image} alt={project.title} />
+          <ProjectTitle>{project.title}</ProjectTitle>
+          <ProjectLocation>{project.location}</ProjectLocation>
+          <ProjectDescription>{project.description}</ProjectDescription>
+          <Button
+            variant="primary"
+            size="medium"
+            elevation={true}
+            onClick={() => onViewProject && onViewProject(project.id)}
+          >
+            View Project
+          </Button>
+        </ProjectCard>
+      ))}
+    </ProjectsGrid>
+  </Section>
+);
 
 export default FeaturedWorks; 

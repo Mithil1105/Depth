@@ -11,6 +11,11 @@ const ContentWrapper = styled.div`
   @media (max-width: 992px) {
     flex-direction: column;
   }
+
+  @media (max-width: 576px) {
+    gap: ${theme.spacing(4)};
+    padding: 0 ${theme.spacing(2)};
+  }
 `;
 
 const TextContent = styled.div`
@@ -30,7 +35,7 @@ const ImageWrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  
   @media (max-width: 992px) {
     margin-top: ${theme.spacing(8)};
     max-width: 500px;
@@ -45,6 +50,10 @@ const MainImage = styled.img`
   border-radius: ${theme.borderRadius.medium};
   box-shadow: ${theme.shadows.medium};
   max-width: 420px;
+
+  @media (max-width: 576px) {
+    max-width: 95vw;
+  }
 `;
 
 const FloatingImage = styled.img`
@@ -56,17 +65,17 @@ const FloatingImage = styled.img`
   box-shadow: ${theme.shadows.medium};
   z-index: 2;
   transition: all 0.3s;
-
+  
   &.top-left {
     top: -${theme.spacing(8)};
     left: -${theme.spacing(8)};
   }
-
+  
   &.bottom-right {
     bottom: -${theme.spacing(8)};
     right: -${theme.spacing(8)};
   }
-
+  
   @media (max-width: 992px) {
     position: static;
     width: 140px;

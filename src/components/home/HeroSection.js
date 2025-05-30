@@ -29,6 +29,11 @@ const HeroContainer = styled.div`
     background-position: center;
     z-index: -1;
   }
+
+  @media (max-width: 576px) {
+    min-height: 400px;
+    height: 80vh;
+  }
 `;
 
 const HeroContent = styled(motion.div)`
@@ -37,6 +42,10 @@ const HeroContent = styled(motion.div)`
   max-width: 800px;
   padding: 0 ${theme.spacing(5)};
   z-index: 2;
+
+  @media (max-width: 480px) {
+    padding: 0 ${theme.spacing(2)};
+  }
 `;
 
 const Tagline = styled(motion.h1)`
@@ -49,6 +58,9 @@ const Tagline = styled(motion.h1)`
   letter-spacing: 1px;
   @media (max-width: 768px) {
     font-size: 2rem;
+  }
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
   }
 `;
 
@@ -92,89 +104,89 @@ const ScrollDown = styled(motion.div)`
 `;
 
 const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.2,
-            delayChildren: 0.3,
-            duration: 0.6,
-        }
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.3,
+      duration: 0.6,
     }
+  }
 };
 
 const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.6,
-            ease: "easeOut"
-        }
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
     }
+  }
 };
 
 const scrollVariants = {
-    initial: { y: 0 },
-    animate: {
-        y: [0, 10, 0],
-        transition: {
-            repeat: Infinity,
-            duration: 1.5
-        }
+  initial: { y: 0 },
+  animate: {
+    y: [0, 10, 0],
+    transition: {
+      repeat: Infinity,
+      duration: 1.5
     }
+  }
 };
 
 const HeroSection = () => {
-    const scrollToContent = () => {
-        window.scrollTo({
-            top: window.innerHeight,
-            behavior: 'smooth'
-        });
-    };
+  const scrollToContent = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+  };
 
-    return (
-        <HeroContainer>
-            <HeroContent
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-            >
-                <Tagline variants={itemVariants}>
-                    We Sculpt Legacies — From Stone to Story.
-                </Tagline>
+  return (
+    <HeroContainer>
+      <HeroContent
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <Tagline variants={itemVariants}>
+          We Sculpt Legacies — From Stone to Story.
+        </Tagline>
 
-                <ButtonGroup variants={itemVariants}>
-                    <Button
-                        to="/projects"
-                        variant="primary"
-                        size="large"
-                        elevation={true}
-                    >
-                        Explore Our Collection
-                    </Button>
-                    <Button
-                        to="/about"
-                        variant="outline-secondary"
-                        size="large"
-                        elevation={true}
-                    >
-                        Meet the Artist
-                    </Button>
-                </ButtonGroup>
-            </HeroContent>
+        <ButtonGroup variants={itemVariants}>
+          <Button
+            to="/projects"
+            variant="primary"
+            size="large"
+            elevation={true}
+          >
+            Explore Our Collection
+          </Button>
+          <Button
+            to="/about"
+            variant="outline-secondary"
+            size="large"
+            elevation={true}
+          >
+            Meet the Artist
+          </Button>
+        </ButtonGroup>
+      </HeroContent>
 
-            <ScrollDown
-                onClick={scrollToContent}
-                variants={scrollVariants}
-                initial="initial"
-                animate="animate"
-            >
-                <span>SCROLL DOWN</span>
-            </ScrollDown>
-        </HeroContainer>
-    );
+      <ScrollDown
+        onClick={scrollToContent}
+        variants={scrollVariants}
+        initial="initial"
+        animate="animate"
+      >
+        <span>SCROLL DOWN</span>
+      </ScrollDown>
+    </HeroContainer>
+  );
 };
 
 export default HeroSection; 

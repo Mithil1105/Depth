@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet';
 import Section from '../components/common/Section';
 import theme from '../styles/theme';
 import { FaTimes } from 'react-icons/fa';
+import nalsarovarMain from '../assets/images/depthhh/Archive/nalsarovar/Picture117.png';
 
 // Import project images
 // import jadeshwar1 from '../assets/images/depthhh/Archive/Jadeshwar van/Picture73.png';
@@ -65,7 +66,8 @@ const projects = [
             'Informative signage and fountains (4m diameter)',
             'Pelican marble sculptures'
         ],
-        folder: 'nalsarovar'
+        folder: 'nalsarovar',
+        mainImage: nalsarovarMain
     },
     {
         id: 'shaktipeeth',
@@ -125,6 +127,9 @@ const imageContexts = {
 
 const PageContainer = styled.div`
     padding: ${theme.spacing(5)};
+    @media (max-width: 576px) {
+        padding: ${theme.spacing(2)};
+    }
 `;
 
 const IntroText = styled.p`
@@ -141,6 +146,10 @@ const ProjectGrid = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: ${theme.spacing(6)};
     margin-top: ${theme.spacing(8)};
+    @media (max-width: 576px) {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: ${theme.spacing(3)};
+    }
 `;
 
 const ProjectCard = styled(motion.div)`
@@ -160,6 +169,10 @@ const ProjectImage = styled.img`
     width: 100%;
     height: 250px;
     object-fit: cover;
+    @media (max-width: 576px) {
+        height: auto;
+        max-height: 180px;
+    }
 `;
 
 const ProjectContent = styled.div`
@@ -299,6 +312,16 @@ const ProjectDetailImage = styled.img`
 const ProjectsPage = () => {
     const [selectedProject, setSelectedProject] = useState(null);
 
+    // Open project popup if coming from homepage
+    useEffect(() => {
+        const openId = localStorage.getItem('openProjectId');
+        if (openId) {
+            const project = projects.find(p => p.id === openId);
+            if (project) setSelectedProject(project);
+            localStorage.removeItem('openProjectId');
+        }
+    }, []);
+
     // Helper to get all images for a project
     const getProjectImages = (project) => imageContexts[project.folder] || [];
 
@@ -325,7 +348,7 @@ const ProjectsPage = () => {
                     <ProjectGrid>
                         {projects.map(project => {
                             const images = getProjectImages(project);
-                            const previewImage = images && images.length > 0 ? images[0] : '';
+                            const previewImage = project.mainImage || (images && images.length > 0 ? images[0] : '');
                             return (
                                 <ProjectCard
                                     key={project.id}

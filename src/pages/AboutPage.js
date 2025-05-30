@@ -29,11 +29,11 @@ const AboutPage = () => {
                     GOT AWARD FOR YOUNGEST ENTREPRENEUR FROM OUR PREVIOUS CHIEF MINISTER MR. VIJAY RUPANI 2017
                 </div>
             </section>
-            <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+            {/* <div style={{ marginTop: '2rem', textAlign: 'center' }}>
                 <Link to="/team" style={{ fontSize: '1.2rem', color: '#4B5320', textDecoration: 'underline' }}>
                     Meet Our Team
                 </Link>
-            </div>
+            </div> */}
         </>
     );
 };
