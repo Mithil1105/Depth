@@ -210,7 +210,7 @@ const ProjectImage = styled.img`
   width: 100%;
   max-width: 250px;
   max-height: 200px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 12px;
   margin-bottom: 1.5rem;
   background: #f8f5f2;

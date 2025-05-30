@@ -168,7 +168,7 @@ const ProjectCard = styled(motion.div)`
 const ProjectImage = styled.img`
     width: 100%;
     height: 250px;
-    object-fit: cover;
+    object-fit: contain;
     @media (max-width: 576px) {
         height: auto;
         max-height: 180px;
@@ -305,7 +305,7 @@ const ImageGrid = styled.div`
 const ProjectDetailImage = styled.img`
     width: 100%;
     height: 200px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: ${theme.borderRadius.medium};
 `;
 
